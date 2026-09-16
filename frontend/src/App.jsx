@@ -54,7 +54,7 @@ export default function App() {
   const pdfCount = files.length - imageCount;
 
   // Fetch audit history from MongoDB Atlas via FastAPI on mount
-  const fetchDatabaseHistory = async () => {
+ const fetchDatabaseHistory = async () => {
     setFetchingHistory(true);
     try {
       const response = await fetch(`${API_URL}/audit-history`);
@@ -65,9 +65,10 @@ export default function App() {
       }
 
       setDbHistory(data);
+      setErrorMessage(''); // Clear any previous errors on success
     } catch (error) {
       console.error(error);
-      setErrorMessage(error.message || 'Could not fetch history from MongoDB.');
+      // Removed setErrorMessage here so it won't flash the error banner on initial load
     } finally {
       setFetchingHistory(false);
     }
